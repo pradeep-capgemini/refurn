@@ -1,0 +1,45 @@
+.slider {
+  .slide {
+    height: 500px;
+    .banner {
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+
+      .overlay {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 2rem;
+        height: 100%;
+
+        h1, h2, p {
+          margin: 0.5rem 0;
+        }
+
+        .icons {
+          display: flex;
+          gap: 1rem;
+          margin: 1rem 0;
+          mat-icon {
+            margin-right: 0.5rem;
+          }
+        }
+
+        .cards {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin: 1rem 0;
+
+          .promo-card {
+            flex: 1 1 200px;
+            background: white;
+            color: black;
+            padding: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

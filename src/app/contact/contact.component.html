@@ -1,0 +1,39 @@
+<div class="contact-container">
+  <mat-card class="contact-card">
+    <mat-card-header>
+      <mat-card-title>📬 Contact Us</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="intro-text">
+        We'd love to hear from you! Fill out the form below or reach us directly:
+      </p>
+
+      <div class="contact-info">
+        <p><mat-icon>email</mat-icon> support@refurn.com</p>
+        <p><mat-icon>phone</mat-icon> +91 98765 43210</p>
+      </div>
+
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Enter you name.." />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="abc@example.com" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Message</mat-label>
+          <textarea matInput formControlName="message" rows="5" placeholder="Type your message here..."></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" type="submit" [disabled]="contactForm.invalid">
+          <mat-icon>send</mat-icon>
+          Send Message
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

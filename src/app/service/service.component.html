@@ -1,0 +1,16 @@
+<div class="services-container">
+  <mat-card class="services-card">
+    <mat-card-header>
+      <mat-card-title>🌟 Our Services</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="service-grid">
+        <div class="service-box" *ngFor="let service of services">
+          <mat-icon class="service-icon" [color]="service.color">{{ service.icon }}</mat-icon>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

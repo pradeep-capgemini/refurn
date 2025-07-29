@@ -1,0 +1,117 @@
+<div class="signup-container">
+  <div class="background-overlay"></div>
+  <div class="signup-content">
+    <!-- <img src="assets/images/sign-up.png" alt="Logo" class="logo" /> -->
+    <h2 class="signup-heading">Create an Account</h2>
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+      <mat-card class="signup-card">
+        <mat-card-content>
+
+
+
+          <!-- Email -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            <mat-error *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+              <span *ngIf="contactForm.get('email')?.errors?.['required']">Email is required.</span>
+              <span *ngIf="contactForm.get('email')?.errors?.['email']">Invalid email address.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- UserName -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>UserName</mat-label>
+            <input matInput formControlName="userName" />
+            <mat-error *ngIf="contactForm.get('userName')?.touched && contactForm.get('userName')?.invalid">
+              <span *ngIf="contactForm.get('userName')?.errors?.['required']">UserName is required.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Password -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="contactForm.get('password')?.touched && contactForm.get('password')?.invalid">
+              <span *ngIf="contactForm.get('password')?.errors?.['required']">Password is required.</span>
+              <span *ngIf="contactForm.get('password')?.errors?.['minlength']">Minimum 6 characters required.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- city -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>City</mat-label>
+            <input matInput type="text" formControlName="city" />
+            <mat-error *ngIf="contactForm.get('city')?.touched && contactForm.get('city')?.invalid">
+              <span *ngIf="contactForm.get('city')?.errors?.['required']">City is required.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Address -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" formControlName="address" />
+            <mat-error *ngIf="contactForm.get('address')?.touched && contactForm.get('address')?.invalid">
+              <span *ngIf="contactForm.get('address')?.errors?.['required']">Address is required.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Contact No -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Contact No</mat-label>
+            <input matInput type="tel" formControlName="contactNo" maxlength="10" />
+            <mat-error *ngIf="contactForm.get('contactNo')?.touched && contactForm.get('contactNo')?.invalid">
+              <span *ngIf="contactForm.get('contactNo')?.errors?.['required']">Contact No is required.</span>
+              <span *ngIf="contactForm.get('contactNo')?.errors?.['pattern']">Must be a 10-digit number.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- pinCode -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>PinCode</mat-label>
+            <input matInput type="text" formControlName="pinCode" />
+            <mat-error *ngIf="contactForm.get('pinCode')?.touched && contactForm.get('pinCode')?.invalid">
+              <span *ngIf="contactForm.get('pinCode')?.errors?.['required']">PinCode is required.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <div class="radio-group-wrapper full-width">
+            <mat-radio-group aria-label="Select an option" formControlName="accountType">
+              <mat-radio-button value="seller">Seller</mat-radio-button>
+              <mat-radio-button value="buyer">Buyer</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+
+          <!-- Sign Up Button -->
+          <button mat-raised-button color="primary" class="full-width" type="submit" [disabled]="contactForm.invalid">
+            Sign Up
+          </button>
+
+          <!-- Already have an account -->
+          <div class="login-link">
+            Already have an account?
+            <a routerLink="/login">Log In</a>
+          </div>
+
+          <!-- OR Divider -->
+          <div class="divider">
+            <span>OR</span>
+          </div>
+
+          <!-- Sign up with Google -->
+
+          <div class="google-button-wrapper full-width">
+            <button class="google-button" type="button">
+              <img src="assets/images/google_logo.png" alt="Google" />
+              Sign up with Google
+            </button>
+          </div>
+
+
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>

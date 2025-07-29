@@ -1,0 +1,129 @@
+
+
+/* Container for the signup section */
+.signup-container {
+  position: relative;
+  width: 100%;
+  padding: 40px 0; /* Adds space above and below the form */
+  background: url('/assets/images/sign-up.png') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Overlay for darkening the background image */
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* Content wrapper to ensure form is above overlay */
+.signup-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Logo styling (if used) */
+.logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+/* Heading styling */
+.signup-heading {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Card styling for the form */
+.signup-card {
+  background-color: #ffffffee;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Full width for form fields and buttons */
+.full-width {
+  width: 100%;
+}
+
+/* Divider styling */
+.divider {
+  margin: 20px 0;
+  text-align: center;
+  color: #666;
+}
+
+.divider span {
+  background: #fff;
+  padding: 0 10px;
+}
+
+/* Login link styling */
+.login-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.radio-group-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.radio-group-wrapper .mat-label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.google-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #1976d2;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: background 0.3s ease;
+}
+
+.google-button:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+  border-radius: 4px;
+}
+
+.google-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+

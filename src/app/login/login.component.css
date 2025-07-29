@@ -1,0 +1,18 @@
+.signup-heading {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.signup-card {
+  max-width: 400px;
+  margin: 20px auto 60px;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
