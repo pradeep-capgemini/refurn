@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule  } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,16 +22,26 @@ import { AboutComponent } from './about/about.component';
 import { ServiceComponent } from './service/service.component';
 import { ContactComponent } from './contact/contact.component';
 
+
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './admin/admin.component';
+import { SellerComponent } from './seller/seller.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductSellingHistoryComponent } from './product-selling-history/product-selling-history.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { LogoutConfirmationDialogComponent } from './logout-confirmation-dialog/logout-confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 
@@ -48,7 +57,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AboutComponent,
     ServiceComponent,
     ContactComponent,
-    
+    AdminComponent,
+    SellerComponent,
+    DashboardComponent,
+    ProductSellingHistoryComponent,
+    LogoutConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +81,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTooltipModule,
     MatGridListModule,
     MatDividerModule,
-    MatPaginatorModule,MatRadioModule,MatProgressSpinnerModule,HttpClientModule,MatSnackBarModule 
+    MatPaginatorModule, MatProgressSpinnerModule, HttpClientModule, MatSnackBarModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

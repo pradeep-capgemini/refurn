@@ -1,18 +1,25 @@
 <mat-card class="product-card" *ngFor="let product of products">
   <mat-grid-list cols="2" rowHeight="400px">
     <mat-grid-tile>
+
       <img mat-card-image [src]="product.productImage" alt="Product Image" />
+
+      <img mat-card-image [src]="product.image" alt="Product Image" />
+
     </mat-grid-tile>
 
     <mat-grid-tile>
       <mat-card-content>
-        <h2>{{ product.productTitle }}</h2>
-        <p class="rating">⭐ {{ product.productRating }} ({{ product.productReviews }} reviews)</p>
-        <p>{{ product.productDescription }}</p>
+
+        <h2>{{ product.title }}</h2>
+        <p class="rating">⭐ {{ product.rating }} ({{ product.reviews }} reviews)</p>
+        <p>{{ product.description }}</p>
+
 
         <mat-divider></mat-divider>
 
         <div class="price-section">
+
           <span class="price">{{ product.productPrice | currency }}</span>
           <span class="discount" *ngIf="product.productDiscount">{{ product.productDiscount }} OFF</span>
         </div>
@@ -33,12 +40,41 @@
     <button mat-raised-button color="primary" (click)="goToCart(product)">Add to Cart</button>
 
           <button mat-raised-button color="accent">Buy Now</button>
+
+          <span class="price">{{ product.price | currency }}</span>
+          <span class="discount" *ngIf="product.discount">{{ product.discount }} OFF</span>
+        </div>
+
+
+        <div class="form-fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input matInput type="number" [(ngModel)]="quantity" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Delivery Address</mat-label>
+            <input matInput [(ngModel)]="address" />
+          </mat-form-field>
+        </div>
+
+
+        <div class="action-buttons">
+          <button mat-raised-button color="primary">Add to Cart</button>
+
         </div>
 
         <div class="share-section">
           <span>Share:</span>
+
           <button mat-icon-button><mat-icon>share</mat-icon></button>
         </div>
+          <button mat-icon-button (click)="shareProduct(product)">
+            <mat-icon>share</mat-icon>
+          </button>
+        </div>
+
+
       </mat-card-content>
     </mat-grid-tile>
   </mat-grid-list>

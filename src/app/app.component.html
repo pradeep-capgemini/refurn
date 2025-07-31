@@ -4,6 +4,7 @@
   <span class="spacer"></span>
 
   <div style="display: flex; align-items: center;">
+<<<<<<< HEAD
 
     <mat-form-field appearance="fill" class="search-input">
       <input matInput  placeholder="Search ReFurn.com" [(ngModel)]="searchQuery" (keyup.enter)="onSearch(searchQuery)">
@@ -23,6 +24,67 @@
 </mat-toolbar>
 
 
+=======
+    <!-- Search Bar (Visible only when logged in) -->
+    <ng-container>
+      <ng-container>
+        <mat-form-field appearance="fill" class="search-input">
+          <input matInput placeholder="Search ReFurn.com" [(ngModel)]="searchQuery"
+            (keyup.enter)="onSearch(searchQuery)">
+        </mat-form-field>
+        <button mat-icon-button color="primary" class="search-icon" (click)="onSearch(searchQuery)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="authService.isLoggedIn(); else guestUser">
+
+
+        <ng-container
+          *ngIf="authService.getRole() === 'ADMIN' && authService.getUserType()?.toLowerCase() === 'buyer'; else regularBuyer">
+          <!-- Admin + Buyer -->
+          <button mat-button routerLink="/admin" routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }">Admin Approval</button>
+          <button mat-button (click)="confirmLogout()">Logout</button>
+        </ng-container>
+
+        <ng-template #regularBuyer>
+          <ng-container *ngIf="authService.getUserType()?.toLowerCase() === 'buyer'">
+            <!-- Regular Buyer -->
+            <button mat-button routerLink="/" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }">Home</button>
+            <span class="user-name">Welcome, {{ userName }}</span>
+            <button mat-button (click)="confirmLogout()">Logout</button>
+          </ng-container>
+        </ng-template>
+
+
+        <ng-container *ngIf="authService.getUserType()?.toLowerCase() === 'seller'">
+          <!-- Seller Navigation -->
+          <button mat-button routerLink="/add-product" routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }">Add Product</button>
+          <button mat-button routerLink="/product-selling-history" routerLinkActive="active-link">Product Selling
+            History</button>
+          <span class="user-name">Welcome, {{ userName }}</span>
+          <button mat-button (click)="confirmLogout()">Logout</button>
+        </ng-container>
+      </ng-container>
+
+
+    </ng-container>
+
+    <!-- Guest Navigation -->
+    <ng-template #guestUser>
+      <button mat-button routerLink="/" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">Home</button>
+      <button mat-button routerLink="/signup" routerLinkActive="active-link">SignUp</button>
+      <button mat-button routerLink="/about" routerLinkActive="active-link">About</button>
+      <button mat-button routerLink="/services" routerLinkActive="active-link">Services</button>
+      <button mat-button routerLink="/contact" routerLinkActive="active-link">Contact</button>
+    </ng-template>
+  </div>
+</mat-toolbar>
+
+>>>>>>> 07ed42f3d7ba3398297011d8c76ba41cb2a398f5
 <!-- Routed Content -->
 <router-outlet></router-outlet>
 

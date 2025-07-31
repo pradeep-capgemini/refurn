@@ -7,9 +7,12 @@
             <!-- UserName -->
             <mat-form-field appearance="outline" class="full-width">
                 <mat-label>UserName</mat-label>
-                <input matInput formControlName="userName" />
-                <mat-error *ngIf="contactForm.get('userName')?.touched && contactForm.get('userName')?.invalid">
-                    <span *ngIf="contactForm.get('userName')?.errors?.['required']">UserName is required.</span>
+                <input matInput formControlName="username" />
+                <mat-error *ngIf="contactForm.get('username')?.touched && contactForm.get('username')?.invalid">
+                    <span *ngIf="contactForm.get('username')?.errors?.['required']">UserName is required.</span>
+                    <span *ngIf="contactForm.get('username')?.hasError('noSpace')">
+                        Username cannot contain spaces.
+                    </span>
                 </mat-error>
             </mat-form-field>
 
@@ -21,6 +24,10 @@
                     <span *ngIf="contactForm.get('password')?.errors?.['required']">Password is required.</span>
                     <span *ngIf="contactForm.get('password')?.errors?.['minlength']">Minimum 6 characters
                         required.</span>
+
+                    <span *ngIf="contactForm.get('password')?.hasError('noSpace')">
+                        Password cannot contain spaces.
+                    </span>
                 </mat-error>
             </mat-form-field>
 
