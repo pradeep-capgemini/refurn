@@ -1,0 +1,68 @@
+
+<div class="add-to-cart-section mat-elevation-z2" style="padding: 16px; background-color: #f5f7fa; border-radius: 8px;">
+
+<h2 style=" font-size: 24px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 8px;">
+    🛒 Product Cart
+  </h2>
+  
+
+
+<mat-card class="product-card" *ngFor="let product of products">
+    <mat-grid-list cols="2" rowHeight="400px">
+      <mat-grid-tile>
+        <img mat-card-image [src]="product.image" alt="Product Image" style="height: 250px; object-fit: cover;" />
+      </mat-grid-tile>
+  
+      <mat-grid-tile>
+        <mat-card-content>
+          <h1>{{ product.title }}</h1>        
+            <p class="rating">⭐ {{ product.rating }} ({{ product.reviews }} reviews)</p>
+            <p>{{ product.description }}</p>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Quantity</mat-label>
+                <input matInput type="number" [(ngModel)]="product.quantity" />
+              </mat-form-field>
+
+              <div class="price-section">
+                <span class="price">Delivery Address : {{product.address}}</span>
+              </div>
+             
+                <mat-form-field appearance="fill" class="payment-dropdown">
+                    <mat-label>Select Payment Mode</mat-label>
+                    <mat-select [(ngModel)]="product.selectedPayment">
+                    <mat-option *ngFor="let mode of paymentModes" [value]="mode.name">
+                        <img [src]="mode.image" class="payment-icon" />
+                        {{ mode.name }}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+        
+            <div class="price-section">
+                <span class="price">Amount : {{ product.price * product.quantity | currency:'INR':'symbol' }}</span>
+            </div>
+
+          <div class="action-buttons">
+            <!-- <button mat-icon-button color="warn" (click)="removeFromCart1()">
+                <mat-icon>delete</mat-icon>
+            </button> -->
+
+            
+            <button mat-icon-button color="warn" (click)="removeFromCart(product)">
+                <mat-icon>delete</mat-icon>
+            </button>
+  
+
+            <!-- <button mat-raised-button color="accent" [disabled]="!product.selectedPayment">Buy Now</button> -->
+          
+            <button mat-raised-button color="accent" [disabled]="!product.selectedPayment" (click)="buyNow(product)">
+                    <mat-spinner *ngIf="product.loading" diameter="20"></mat-spinner>
+                    <span *ngIf="!product.loading">Buy Now</span>
+            </button>
+        </div>
+        </mat-card-content>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+</div>
+
