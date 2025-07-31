@@ -8,6 +8,9 @@ import { ServiceComponent } from './service/service.component';
 import { ContactComponent } from './contact/contact.component';
 import { AdminComponent } from './admin/admin.component';
 import { SellerComponent } from './seller/seller.component';
+import { PaymentComponent } from './payment/payment.component';
+import { authGuard } from './auth.guard';
+import { ProductSellingHistoryComponent } from './product-selling-history/product-selling-history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,8 +20,10 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'services', component: ServiceComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'seller', component: SellerComponent },
-  { path: 'admin', component: AdminComponent }
+  { path: 'add-product', component: SellerComponent,canActivate: [authGuard] },
+  { path: 'product-selling-history', component: ProductSellingHistoryComponent },
+  { path: 'admin', component: AdminComponent,canActivate: [authGuard] },
+
 ]
 
 @NgModule({

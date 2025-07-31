@@ -197,5 +197,21 @@ export class HomeComponent {
   address = '';
 
 
+  shareProduct(product: any) {
+    const shareData = {
+      title: product.title,
+      text: `Check out this product: ${product.title} for ₹${product.amount} in ${product.category}. Sold by ${product.username}.`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      navigator.share(shareData)
+        .then(() => console.log('Product shared successfully'))
+        .catch((error) => console.error('Error sharing', error));
+    } else {
+      alert('Sharing is not supported in this browser.');
+    }
+  }
+
 
 }

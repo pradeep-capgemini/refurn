@@ -1,0 +1,13 @@
+<h2 mat-dialog-title class="logout-title">
+  <mat-icon class="logout-icon" color="warn">warning</mat-icon>
+  Confirm Logout
+</h2>
+
+<mat-dialog-content class="logout-content">
+  Are you sure you want to logout?
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="logout-actions">
+  <button mat-stroked-button mat-dialog-close class="cancel-button">No</button>
+  <button mat-flat-button [mat-dialog-close]="true" color="warn" class="confirm-button">Yes</button>
+</mat-dialog-actions>

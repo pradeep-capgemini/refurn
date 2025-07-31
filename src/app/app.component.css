@@ -187,8 +187,19 @@ router-outlet {
   flex-wrap: wrap;
 }
 
+
+.user-name {
+  margin-left: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: normal; /* 👈 This removes bold */
+  font-size: 16px;      /* Optional: adjust size to match other buttons */
+}
+
 .search-input {
   width: 300%;
+  margin-top: 20px;width: 280px;height: 65px;
 }
 
 

@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { InterceptorComponent } from './interceptor/interceptor.component';
 import { PaymentComponent } from './payment/payment.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,6 +30,13 @@ import { SellerComponent } from './seller/seller.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductSellingHistoryComponent } from './product-selling-history/product-selling-history.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { LogoutConfirmationDialogComponent } from './logout-confirmation-dialog/logout-confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -39,7 +45,6 @@ import { MatRadioModule } from '@angular/material/radio';
     HomeComponent,
     SignupComponent,
     LoginComponent,
-    InterceptorComponent,
     PaymentComponent,
     AboutComponent,
     ServiceComponent,
@@ -48,6 +53,7 @@ import { MatRadioModule } from '@angular/material/radio';
     SellerComponent,
     DashboardComponent,
     ProductSellingHistoryComponent,
+    LogoutConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +74,12 @@ import { MatRadioModule } from '@angular/material/radio';
     MatGridListModule,
     MatDividerModule,
     MatPaginatorModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
