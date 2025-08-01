@@ -4,27 +4,6 @@
   <span class="spacer"></span>
 
   <div style="display: flex; align-items: center;">
-<<<<<<< HEAD
-
-    <mat-form-field appearance="fill" class="search-input">
-      <input matInput  placeholder="Search ReFurn.com" [(ngModel)]="searchQuery" (keyup.enter)="onSearch(searchQuery)">
-    </mat-form-field>
-
-    <button mat-icon-button color="primary" class="search-icon" (click)="onSearch(searchQuery)">
-      <mat-icon>search</mat-icon>
-    </button>
-    
-    <button mat-button routerLink="/" routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{ exact: true }">Home</button>
-    <button mat-button routerLink="/signup" routerLinkActive="active-link">SignUp</button>
-    <button mat-button routerLink="/about" routerLinkActive="active-link">About</button>
-    <button mat-button routerLink="/services" routerLinkActive="active-link">Services</button>
-    <button mat-button routerLink="/contact" routerLinkActive="active-link">Contact</button>
-  </div>
-</mat-toolbar>
-
-
-=======
     <!-- Search Bar (Visible only when logged in) -->
     <ng-container>
       <ng-container>
@@ -84,7 +63,6 @@
   </div>
 </mat-toolbar>
 
->>>>>>> 07ed42f3d7ba3398297011d8c76ba41cb2a398f5
 <!-- Routed Content -->
 <router-outlet></router-outlet>
 

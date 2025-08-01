@@ -1,68 +1,80 @@
-
 <div class="add-to-cart-section mat-elevation-z2" style="padding: 16px; background-color: #f5f7fa; border-radius: 8px;">
 
-<h2 style=" font-size: 24px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 8px;">
+  <h2
+    style="position: relative;font-size: 24px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 8px;">
     🛒 Product Cart
   </h2>
+
   
 
 
-<mat-card class="product-card" *ngFor="let product of products">
-    <mat-grid-list cols="2" rowHeight="400px">
+  <mat-card class="product-card" *ngFor="let product of products">
+    <mat-grid-list cols="3" rowHeight="250px">
       <mat-grid-tile>
-        <img mat-card-image [src]="product.image" alt="Product Image" style="height: 250px; object-fit: cover;" />
+        <img mat-card-image [src]="product.cartProductImage" alt="Product Image"
+          style="height: 200px; object-fit: cover;" />
       </mat-grid-tile>
-  
+
       <mat-grid-tile>
         <mat-card-content>
-          <h1>{{ product.title }}</h1>        
-            <p class="rating">⭐ {{ product.rating }} ({{ product.reviews }} reviews)</p>
-            <p>{{ product.description }}</p>
+          <h3><strong>{{ product.cartProductTitle }}</strong></h3>
+          <p class="rating">⭐ {{ product.cartProductRating }} ({{ product.cartProductReviews }} reviews)</p>
+          <p>{{ product.cartProductDescription }}</p>
+          <br>
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input matInput type="number" [(ngModel)]="product.cartProductQuantity" />
+          </mat-form-field>
+        </mat-card-content></mat-grid-tile><mat-grid-tile><mat-card-content>
+          
 
-            <mat-form-field appearance="outline">
-                <mat-label>Quantity</mat-label>
-                <input matInput type="number" [(ngModel)]="product.quantity" />
-              </mat-form-field>
+          <!-- <div class="price-section"> -->
+            <div>
+            <p>Delivery Address : {{product.cartProductAddress}}</p>
+          </div>
 
-              <div class="price-section">
-                <span class="price">Delivery Address : {{product.address}}</span>
-              </div>
-             
-                <mat-form-field appearance="fill" class="payment-dropdown">
-                    <mat-label>Select Payment Mode</mat-label>
-                    <mat-select [(ngModel)]="product.selectedPayment">
-                    <mat-option *ngFor="let mode of paymentModes" [value]="mode.name">
-                        <img [src]="mode.image" class="payment-icon" />
-                        {{ mode.name }}
-                    </mat-option>
-                    </mat-select>
-                </mat-form-field>
-        
-            <div class="price-section">
-                <span class="price">Amount : {{ product.price * product.quantity | currency:'INR':'symbol' }}</span>
-            </div>
+          <mat-form-field appearance="fill" class="payment-dropdown">
+            <mat-label>Select Payment Mode</mat-label>
+            <mat-select [(ngModel)]="selectedPayment">
+              <mat-option *ngFor="let mode of paymentModes" [value]="mode.name">
+                <img [src]="mode.image" class="payment-icon" />
+                {{ mode.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div>
+            <span class="price">Amount : {{ product.cartProductPrice * product.cartProductQuantity |
+              currency:'INR':'symbol' }}</span>
+          </div>
+
+        <!-- </mat-card-content>
+      </mat-grid-tile>
+    <mat-grid-tile><mat-card-content> -->
 
           <div class="action-buttons">
             <!-- <button mat-icon-button color="warn" (click)="removeFromCart1()">
                 <mat-icon>delete</mat-icon>
             </button> -->
 
-            
-            <button mat-icon-button color="warn" (click)="removeFromCart(product)">
-                <mat-icon>delete</mat-icon>
-            </button>
-  
+         
+           
+
 
             <!-- <button mat-raised-button color="accent" [disabled]="!product.selectedPayment">Buy Now</button> -->
-          
-            <button mat-raised-button color="accent" [disabled]="!product.selectedPayment" (click)="buyNow(product)">
-                    <mat-spinner *ngIf="product.loading" diameter="20"></mat-spinner>
-                    <span *ngIf="!product.loading">Buy Now</span>
+
+            <button mat-raised-button color="accent" [disabled]="!selectedPayment" (click)="buyNow(product)">
+              <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+              <span *ngIf="!loading">Buy Now</span>
             </button>
-        </div>
+
+            <button mat-icon-button color="warn" (click)="removeFromCart(product)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
         </mat-card-content>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card>
 </div>
-

@@ -4,6 +4,9 @@ import { Product } from '../model/product.model';
 import { PageEvent } from '@angular/material/paginator';
 import { ProductServiceService } from '../services/product-service.service';
 import { Router } from '@angular/router';
+import { CartItem } from '../model/cart-item.model';
+import { AuthService } from '../services/auth.service';
+import { CartService } from '../services/cart-service.service';
 
 
 @Component({
@@ -15,13 +18,14 @@ export class HomeComponent implements OnInit {
 
 
   products: Product[] = [];
-  quantity = 1;
-  address = '';
+  quantity: number = 1;
+  address:string = '';
 
 
-  constructor(private productService: ProductServiceService, private router: Router) { }
+  constructor(private productService: ProductServiceService, private router: Router, private authService: AuthService, private cartService: CartService) { }
 
-
+  username: string = this.authService.getUserName() ?? '';
+  userType: string = this.authService.getUserType() ?? '';
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe({
@@ -36,10 +40,58 @@ export class HomeComponent implements OnInit {
   }
 
 
-  goToCart(product: Product) {
-    this.router.navigate(['/cart'], { state: { product } });
+  updateQuantity(): void {
+    console.log('Updated quantity:', this.quantity);
   }
 
+  // goToCart(product: Product) {
+  //   this.router.navigate(['/cart'], { state: { product } });
+  // }
+
+  goToCart(product: Product) {
+    const cartItem: CartItem = {
+      cartProductId: product.productId,
+      cartProductTitle: product.productTitle,
+      cartProductRating: product.productRating,
+      cartProductReviews: product.productReviews,
+      cartProductDescription: product.productDescription,
+      cartProductPrice: product.productPrice,
+      cartProductDiscount: product.productDiscount,
+      cartProductImage: product.productImage,
+      cartUserName: this.username,
+      cartUserType: this.userType,
+      cartProductOwnerName: '',
+      cartProductQuantity: this.quantity,
+      cartProductAddress: this.address
+    };
+    console.log("address=> " + this.address);
+    this.cartService.addToCart(cartItem).subscribe({
+      next: (response) => {
+        console.log('Cart data saved:', response);
+        this.router.navigate(['/cart'], { state: { product } });
+      },
+      error: (err) => {
+        console.error('Error saving cart item:', err);
+      }
+    });
+  }
+
+
+  shareProduct(product: any) {
+    const shareData = {
+      title: product.title,
+      text: `Check out this product: ${product.title} for ₹${product.amount} in ${product.category}. Sold by ${product.username}.`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      navigator.share(shareData)
+        .then(() => console.log('Product shared successfully'))
+        .catch((error) => console.error('Error sharing', error));
+    } else {
+      alert('Sharing is not supported in this browser.');
+    }
+  }
 
 }
 

@@ -4,29 +4,27 @@
 
       <img mat-card-image [src]="product.productImage" alt="Product Image" />
 
-      <img mat-card-image [src]="product.image" alt="Product Image" />
-
     </mat-grid-tile>
 
     <mat-grid-tile>
       <mat-card-content>
 
-        <h2>{{ product.title }}</h2>
-        <p class="rating">⭐ {{ product.rating }} ({{ product.reviews }} reviews)</p>
-        <p>{{ product.description }}</p>
+        <h2>{{ product.productTitle }}</h2>
+        <p class="rating">⭐ {{ product.productRating }} ({{ product.productReviews }} reviews)</p>
+        <p>{{ product.productDescription }}</p>
 
 
         <mat-divider></mat-divider>
 
-        <div class="price-section">
+        <div class="price-section" style="margin-bottom: 20px;margin-top: 20px;">
 
-          <span class="price">{{ product.productPrice | currency }}</span>
-          <span class="discount" *ngIf="product.productDiscount">{{ product.productDiscount }} OFF</span>
+          <span class="price" style="margin-right: 85px;">Amount: {{ product.productPrice | currency:'INR':'symbol' }}</span>
+          <span class="discount" *ngIf="product.productDiscount">Discount: {{ product.productDiscount }}% OFF</span>
         </div>
 
         <mat-form-field appearance="outline">
           <mat-label>Quantity</mat-label>
-          <input matInput type="number" [(ngModel)]="quantity" />
+          <input matInput type="number" [(ngModel)]="quantity" (ngModelChange)="updateQuantity()" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -35,18 +33,19 @@
         </mat-form-field>
 
         <div class="action-buttons">
-         
-           
-    <button mat-raised-button color="primary" (click)="goToCart(product)">Add to Cart</button>
+
+
+          <button mat-raised-button color="primary" (click)="goToCart(product)">Add to Cart</button>
 
           <button mat-raised-button color="accent">Buy Now</button>
 
-          <span class="price">{{ product.price | currency }}</span>
-          <span class="discount" *ngIf="product.discount">{{ product.discount }} OFF</span>
+          <!-- <span class="price">{{ product.productPrice | currency }}</span>
+          <span class="discount" *ngIf="product.productDiscount">{{ product.productDiscount }} OFF</span>
+        -->
         </div>
 
 
-        <div class="form-fields">
+        <!-- <div class="form-fields">
           <mat-form-field appearance="outline">
             <mat-label>Quantity</mat-label>
             <input matInput type="number" [(ngModel)]="quantity" />
@@ -56,23 +55,25 @@
             <mat-label>Delivery Address</mat-label>
             <input matInput [(ngModel)]="address" />
           </mat-form-field>
-        </div>
+        </div> -->
 
 
-        <div class="action-buttons">
+        <!-- <div class="action-buttons">
           <button mat-raised-button color="primary">Add to Cart</button>
 
         </div>
 
+        <div class="action-buttons">
+          <button mat-raised-button color="primary">Add to Cart</button>
+        </div> -->
+
         <div class="share-section">
           <span>Share:</span>
-
-          <button mat-icon-button><mat-icon>share</mat-icon></button>
-        </div>
           <button mat-icon-button (click)="shareProduct(product)">
             <mat-icon>share</mat-icon>
           </button>
         </div>
+
 
 
       </mat-card-content>

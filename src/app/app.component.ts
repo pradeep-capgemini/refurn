@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-import { Component, EventEmitter, Output } from '@angular/core';
-=======
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LogoutConfirmationDialogComponent } from './logout-confirmation-dialog/logout-confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
->>>>>>> 07ed42f3d7ba3398297011d8c76ba41cb2a398f5
 
 @Component({
   selector: 'app-root',
@@ -27,7 +23,6 @@ export class AppComponent implements OnInit {
     this.userType = this.authService.getUserType();
     this.role = this.authService.getRole();
 
-debugger
     if (this.role === 'ADMIN' && this.userType === 'buyer') {
       this.router.navigate(['/admin']);
     }
@@ -44,8 +39,6 @@ debugger
   onSearch(term: string) {
     this.searchQuery = term;
   }
-<<<<<<< HEAD
-=======
 
 
 
@@ -66,7 +59,6 @@ debugger
   }
 
 
->>>>>>> 07ed42f3d7ba3398297011d8c76ba41cb2a398f5
 }
 
 

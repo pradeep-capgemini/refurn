@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../services/auth.service';
+import { CartItem } from '../model/cart-item.model';
+import { CartService } from '../services/cart-service.service';
 
 
 @Component({
@@ -8,100 +11,118 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
+  products: CartItem[] = [];
   selectedPayment: string = '';
-  loading:boolean = true;
-  
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
+  loading: boolean = true;
+  userName!: string | null;
+  userType!: string | null;
 
-  products = [
-    {
-      image: 'assets/images/modern-curved-sofa-set.png',
-      title: 'Modern Sofa Set',
-      description: 'Elegant 3-seater with plush cushions and solid wood frame.',
-      rating: 4.6,
-      reviews: 210,
-      price: 499.99,
-      quantity: 2,
-      address: "Pune",
-      selectedPayment:  '',
-      loading: false
-    },
-    {
-      image: 'assets/images/Wooden-Dining-Table.png',
-      title: 'Wooden Dining Table',
-      description: 'Elegant 3-seater with plush cushions and solid wood frame.',
-      rating: 4.7,
-      reviews: 185,
-      price: 699.99,
-      quantity: 1,
-      address: "Mumbai",
-      selectedPayment:  '',
-      loading: false 
-    }];
-    quantity = 2;
+  constructor(
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private cartService: CartService
+  ) { }
 
-    
-    // removeFromCart1(product: any) {
-    //   const index = this.products.indexOf(product);
-    //   if (index > -1) {
-    //     this.products.splice(index, 1);
-    //     console.log('Removed product:', product.title);
-    //   }
-    // }
-    
+  ngOnInit(): void {
+    this.userName = this.authService.getUserName();
+    this.userType = this.authService.getUserType();
 
-
-paymentModes = [
-  { name: 'PhonePe', image: 'assets/images/phonepe.png' },
-  { name: 'Google Pay', image: 'assets/images/googlepay.png' },
-  { name: 'UPI', image: 'assets/images/upi.png' },
-  { name: 'Paytm', image: 'assets/images/paytm.png' },
-  { name: 'Cash on Delivery', image: 'assets/images/cash.png' }
-];
+    if (this.userName) {
+      this.cartService.getCartItemsByUsername(this.userName).subscribe({
+        next: (data) => {
+          this.products = data;
+          this.loading = false;
+        },
+        error: (err) => {
+          this.snackBar.open('Failed to load cart items', 'Close', { duration: 3000 });
+          this.loading = false;
+        }
+      });
+    }
+  }
 
 
 
-removeFromCart(product: any) {
-const index = this.products.indexOf(product);
-if (index > -1) {
-  this.products.splice(index, 1);
-}
-}
 
 
-buyNow(product: any) {
-  product.loading = true;
+
+  paymentModes = [
+    { name: 'PhonePe', image: 'assets/images/phonepe.jpeg' },
+    { name: 'Google Pay', image: 'assets/images/googlepay.png' },
+    { name: 'UPI', image: 'assets/images/upi.png' },
+    { name: 'Paytm', image: 'assets/images/paytm.png' },
+    { name: 'Cash on Delivery', image: 'assets/images/cash.jpeg' }
+  ];
 
 
-  setTimeout(() => {
-    this.http.post('http://localhost:8080/api/buy', {
-      productId: product.id,
-      quantity: product.quantity,
-      paymentMode: product.selectedPayment,
-      address: product.address
-    }).subscribe({
+
+  // removeFromCart(product: any) {
+  //   const index = this.products.indexOf(product);
+  //   if (index > -1) {
+  //     this.products.splice(index, 1);
+  //   }
+  // }
+
+  removeFromCart(product: any) {
+    this.cartService.deleteProduct(product.cartProductId, this.userName!).subscribe({
       next: () => {
-        this.snackBar.open('Purchase successful!', 'Close', {
-          duration: 2000,
-          panelClass: ['snackbar-success']
-        });
-
-        setTimeout(() => {
-          this.removeFromCart(product);
-          product.loading = false;
-        }, 300);
+        const index = this.products.indexOf(product);
+        if (index > -1) {
+          this.products.splice(index, 1);
+        }
       },
-      error: () => {
-        this.snackBar.open('Purchase failed. Please try again.', 'Close', {
-          duration: 3000,
-          panelClass: ['snackbar-error']
-        });
-        product.loading = false;
+      error: (err) => {
+        console.error('Error deleting product:', err);
       }
     });
-  }, 2000);
-}
+  }
+
+
+
+  buyNow(product: any) {
+    product.loading = true;
+
+
+    setTimeout(() => {
+      this.http.post('http://localhost:8002/api/refurn/cart/buy', {
+        cartId: product.cartId,
+        cartProductId: product.cartProductId,
+        cartProductTitle: product.cartProductTitle,
+        cartProductRating: product.cartProductRating,
+        cartProductReviews: product.cartProductReviews,
+        cartProductDescription: product.cartProductDescription,
+        cartProductPrice: product.cartProductPrice,
+        cartProductDiscount: product.cartProductDiscount,
+        cartProductImage: product.cartProductImage,
+        cartProductOwnerName: product.cartProductOwnerName,
+        cartProductQuantity: product.cartProductQuantity,
+        cartProductAddress: product.cartProductAddress,
+        userName: this.userName,
+        userType: this.userType
+      }).subscribe({
+        next: () => {
+          this.snackBar.open('Purchase successful!', 'Close', {
+            duration: 2000,
+            panelClass: ['snackbar-success']
+          });
+
+          setTimeout(() => {
+            this.removeFromCart(product);
+            product.loading = false;
+          }, 300);
+        },
+        error: () => {
+          this.snackBar.open('Purchase failed. Please try again.', 'Close', {
+            duration: 3000,
+            panelClass: ['snackbar-error']
+          });
+          product.loading = false;
+        }
+      });
+    }, 2000);
+  }
 
 
 }

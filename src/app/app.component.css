@@ -187,8 +187,6 @@ router-outlet {
   flex-wrap: wrap;
 }
 
-<<<<<<< HEAD
-=======
 
 .user-name {
   margin-left: 16px;
@@ -199,7 +197,6 @@ router-outlet {
   font-size: 16px;      /* Optional: adjust size to match other buttons */
 }
 
->>>>>>> 07ed42f3d7ba3398297011d8c76ba41cb2a398f5
 .search-input {
   width: 300%;
   margin-top: 20px;width: 280px;height: 65px;
